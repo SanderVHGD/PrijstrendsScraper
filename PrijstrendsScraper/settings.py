@@ -15,6 +15,9 @@ NEWSPIDER_MODULE = 'PrijstrendsScraper.spiders'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'PrijstrendsScraper (+http://www.yourdomain.com)'
+from PrijstrendsScraper.utils import get_random_agent
+
+USER_AGENT = get_random_agent()
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
