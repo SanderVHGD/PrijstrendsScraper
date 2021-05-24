@@ -20,3 +20,5 @@ class ProductsSpider(scrapy.Spider):
                 'discounted_price': item.xpath('normalize-space(.//a[contains(@class, "userPrice")]/text())').get().replace('\xa0','')
                 #'discounted_price': item.css('a.userPrice::text').get()
             }
+
+#https://medium.com/codelog/store-scrapy-crawled-data-in-postgressql-2da9e62ae272
