@@ -8,10 +8,15 @@ class ProductsSpider(scrapy.Spider):
     ]
 
     def parse(self, response):
-        for item in response.xpath('//div[contains(@class, "Article-item")]'):
-            print(item)
+        #for item in response.xpath('//div[contains(@class, "Article-item")]'):
+        for item in response.css('div.Article-item'):
             yield {
-                'name': item.xpath('//a[contains(@class, "Article-title")]/text()').get(),
-                'availability': item.xpath('//li[contains(@class, "seller-item")]/p/@class').get,
-                'price': item.css('//strong[contains(@class, "userPrice")]/text()').get(),
+                'name': item.xpath('normalize-space(.//a[contains(@class, "Article-title")]/text())').get(),
+                #'name': item.css('a.Article-title::text').get(),
+                'availability': item.xpath('normalize-space(.//span[contains(@class, "Dispo-txt")]/text())').get(),
+                #'availability': item.css('span.Dispo-txt::text').get(),
+                'price': item.xpath('normalize-space(.//strong[contains(@class, "userPrice")]/text())').get().replace('\xa0',''),
+                #'price': item.css('strong.userPrice::text').get(),
+                'discounted_price': item.xpath('normalize-space(.//a[contains(@class, "userPrice")]/text())').get().replace('\xa0','')
+                #'discounted_price': item.css('a.userPrice::text').get()
             }
